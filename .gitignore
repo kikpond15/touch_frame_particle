@@ -6,6 +6,7 @@ obj/
 .vs/
 
 #file
+.gitignore
 icon.rc
 testMultiTouch.vcxproj
 testMultiTouch.vcxproj.user
