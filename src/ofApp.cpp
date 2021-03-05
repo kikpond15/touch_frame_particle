@@ -8,6 +8,7 @@ void ofApp::setup() {
 	// Visual setup
 	ofBackground(0);
 	ofSetFrameRate(60);
+	ofEnableBlendMode(OF_BLENDMODE_ADD);
 	ofHideCursor();
 
 	// Enable the Windows Touch Hook
@@ -19,31 +20,23 @@ void ofApp::setup() {
 	ofAddListener(ofxMultitouch::touchMoved, this, &ofApp::touchMove);
 	ofAddListener(ofxMultitouch::touchUp, this, &ofApp::touchUp);
 
-	particleSystem = ParticleSystem(ofVec2f(ofGetWidth()/2, ofGetHeight()/2));
+	particleSystem = ParticleSystem(ofVec2f(0,0));
 }
 
 //--------------------------------------------------------------
 void ofApp::update() {
 	list<ofTouchEventArgs> ::iterator it;
 	for (it = touches.begin(); it != touches.end(); ++it) {
-		//ofDrawCircle((*it).x, (*it).y, 50);
-
-		//ofDrawBitmapString(ofToString((*it).x) + ", " + ofToString((*it).y), 100, 200);
-		//cout << (*it).x << ", " << (*it).y << endl;
-
-		particleSystem.addParticle();
-		particleSystem.updatePos(ofVec2f((*it).x, (*it).y));
+		ofDrawCircle((*it).x, (*it).y, 50);
+		particleSystem.addParticle(ofVec2f((*it).x, (*it).y));
+		ofVec2f force(ofRandom(-1, 1), ofRandom(-1, 1));
+		particleSystem.applyForce(force);
 	}
+	particleSystem.update();
 }
 
 //--------------------------------------------------------------
 void ofApp::draw() {
-	// Display frame rate
-	ofDrawBitmapString(ofToString(roundf(ofGetFrameRate())), 100, 100);
-
-	// Draw circles
-	//ofSetColor(255, 255, 255, 150);
-
 	particleSystem.display();
 }
 

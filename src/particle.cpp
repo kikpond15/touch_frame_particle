@@ -1,29 +1,28 @@
 #include "particle.hpp"
 
-Particle::Particle(ofVec2f l) {
+Particle::Particle(ofVec2f p, float r, ofColor c) {
 	acceleration = ofVec2f(0, 0.05);
 	velocity = ofVec2f(ofRandom(-1, 1), ofRandom(-2, 0));
-	position = l;
-	color.set(0, 50, 255);
-	//Set random color
-	//color.set(ofRandom(255), ofRandom(255), ofRandom(255));
+	position = p;
+	color.set(c);
 	lifespan = 255.0;
+	rad = r;
 }
 
-void Particle::run() {
-	update();
-	display();
+void Particle::applyForce(ofVec2f f){
+	acceleration += f;
 }
 
 void Particle::update() {
 	velocity += acceleration;
 	position += velocity;
 	lifespan -= 2.0;
+	acceleration = ofVec2f(0, 0);
 }
 
 void Particle::display() {
 	ofSetColor(color, lifespan);
-	ofDrawEllipse(position.x, position.y, 12, 12);
+	ofDrawEllipse(position.x, position.y, rad, rad);
 }
 
 bool Particle::isDead() {

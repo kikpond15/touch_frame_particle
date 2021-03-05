@@ -17,5 +17,4 @@ public:
 	void touchUp(ofTouchEventArgs& touch);
 
 	ParticleSystem particleSystem;
-
 };

@@ -7,17 +7,15 @@
 
 class Particle {
 public:
-	Particle(ofVec2f l);
+	Particle(ofVec2f p, float r, ofColor c);
 	void update();
-	void run();
+	void applyForce(ofVec2f f);
 	void display();
 	bool isDead();
 
 	ofVec2f position, velocity, acceleration;
 	ofColor color;
-	float lifespan;
-
-
+	float lifespan, rad;
 };
 
 #endif

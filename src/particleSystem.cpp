@@ -3,37 +3,38 @@
 ParticleSystem::ParticleSystem() {
 }
 
-ParticleSystem::ParticleSystem(ofVec2f pos) {
-	origin.set(pos);
+ParticleSystem::ParticleSystem(ofVec2f p) {
+	origin.set(p);
 }
 
-void ParticleSystem::addParticle() {
-	particles.push_back(Particle(origin));
+void ParticleSystem::addParticle(ofVec2f v) {
+	float rad = ofRandom(10, 50);
+	ofColor c(0,100,255);
+	//ofColor c(ofRandom(255), ofRandom(255), ofRandom(255));
+	particles.push_back(Particle(v, rad, c));
 }
 
-void ParticleSystem::run() {
-	for (int i = particles.size() - 1; i >= 0; i--) {
-		Particle p = particles[i];
-		p.run();
-		if (p.isDead()) {
-			particles.erase(particles.begin() + i);
-			//particles.erase(i);
-		}
+void ParticleSystem::applyForce(ofVec2f v) {
+	for (auto p: particles) {
+		p.applyForce(v);
 	}
 }
 
-void ParticleSystem::updatePos(ofVec2f pos) {
-	origin.set(pos);
-	for (int i = particles.size() - 1; i >= 0; i--) {
-		particles[i].update();
-		if (particles[i].isDead()) {
-			particles.erase(particles.begin() + i);
+void ParticleSystem::update() {
+	if (particles.size() > 0) {
+		for (int i = particles.size() - 1; i >= 0; i--) {
+			particles[i].update();
+			if (particles[i].isDead()) {
+				particles.erase(particles.begin() + i);
+			}
 		}
 	}
 }
 
 void ParticleSystem::display() {
-	for (int i = particles.size() - 1; i >= 0; i--) {
-		particles[i].display();
+	if (particles.size() > 0) {
+		for (int i = particles.size()-1; i >= 0; i--) {
+			particles[i].display();
+		}
 	}
 }
