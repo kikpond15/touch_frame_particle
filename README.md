@@ -6,3 +6,6 @@ Amazon link : [43inch 10point IR multi-touch frames](https://www.amazon.co.jp/zh
 
 ## Addon
 [olivialynn/ofxMultitouch](https://github.com/OliviaLynn/ofxMultitouch)
+
+## License
+MIT
